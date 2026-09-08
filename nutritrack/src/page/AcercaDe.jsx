@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom'
-import avatar from '../assets/hero.png'
 
 function AcercaDe() {
   return (
     <section className="page-section about-page">
       <p className="eyebrow">Acerca de NutriTrack</p>
       <div className="about-layout">
-        <img className="profile-image" src={avatar} alt="Avatar del equipo de NutriTrack" />
+        <img className="profile-image" src="/icons.svg" alt="Avatar del equipo de NutriTrack" />
         <div>
           <h1>Un proyecto de Javier y Maria Fernanda</h1>
           <p className="about-lead">Una experiencia para registrar la alimentacion diaria de forma clara y sencilla.</p>
