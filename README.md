@@ -60,16 +60,6 @@ Construir una aplicación en React que permita:
 
 El proyecto debe crearse con Vite y llamarse `nutritrack`:
 
-```bash
-npm create vite@latest nutritrack -- --template react
-cd nutritrack
-npm install
-npm install react-router-dom
-npm run dev
-```
-
-> Se permite usar JavaScript (`.jsx`). No es obligatorio usar TypeScript.
-
 ---
 
 ## 2. Estructura del proyecto
@@ -343,65 +333,3 @@ Se podrán obtener hasta **10 puntos adicionales**.
 Los puntos adicionales no reemplazan los requerimientos obligatorios.
 
 ---
-
-# Recomendaciones de implementación
-
-## Un solo manejador para todos los campos
-
-```javascript
-const manejarCambio = (evento) => {
-  const { name, value } = evento.target;
-  setFormulario({ ...formulario, [name]: value });
-};
-```
-
-Así cada `input` solo necesita `name`, `value` y `onChange={manejarCambio}`.
-
-## Una función de validación que devuelva los errores
-
-```javascript
-const validarFormulario = (datos) => {
-  const nuevosErrores = {};
-
-  if (datos.nombre.trim().length < 3) {
-    nuevosErrores.nombre = "El nombre debe tener al menos 3 caracteres.";
-  }
-
-  // ... el resto de las reglas
-
-  return nuevosErrores;
-};
-```
-
-Devolver el objeto de errores (en lugar de modificar el estado dentro de la función) permite comprobar en el envío si el formulario es válido:
-
-```javascript
-const manejarEnvio = (evento) => {
-  evento.preventDefault();
-  const nuevosErrores = validarFormulario(formulario);
-  setErrores(nuevosErrores);
-
-  if (Object.keys(nuevosErrores).length === 0) {
-    navigate("/cuidado-nutricional", { state: formulario });
-  }
-};
-```
-
-## Mostrar el error junto al campo
-
-```jsx
-<label htmlFor="edad">Edad</label>
-<input
-  id="edad"
-  name="edad"
-  type="number"
-  value={formulario.edad}
-  onChange={manejarCambio}
-  className={errores.edad ? "campo campo--error" : "campo"}
-/>
-{errores.edad && <p className="mensaje-error">{errores.edad}</p>}
-```
-
-## Un componente reutilizable para los campos
-
-Si vas por los puntos de organización, crea `CampoFormulario.jsx` que reciba por props la etiqueta, el nombre, el tipo, el valor, el manejador y el error, y úsalo diez veces. Reduce el código del formulario a la mitad.
